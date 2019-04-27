@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+    
+    $(document).ready(function () {
+        
+        $.ajax({
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            url: 'Invoice/Details',
+            data: {
+                format: 'json'
+            },
+            type: 'GET',
+            success: function (data) {
+
+                for(var i =0; i < data.length; i++)
+                {
+                    var record = $('<p>').text(data[i].Id + "     " + data[i].Type);
+                    var record = '<tr><td>' + data[i].Id + '<td/><td>' + data[i].Type+ '<td/><td><button id="details" type="button">Detalles</button><td/><tr/>';
+
+                    var table = $('<table>').append(record);
+                    $("#grid").append(table);
+                }
+
+            },
+            error: function () {
+
+            }
+        });
+
+    });
+
+</script>
+
+<div>
+    <h1>Facturas</h1>
+</div>
+<hr />
+
+<div id="grid">
+
+</div>
+<hr />
+
+<div>
+    <button id="addRecord" type="button">Nueva Factura</button>
+</div>
